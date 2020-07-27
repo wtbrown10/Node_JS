@@ -1,0 +1,16 @@
+{
+  "name": "firstnpm",
+  "version": "1.0.0",
+  "description": "this is my first npm project working with express",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run devStart",
+    "devStart": "nodemon app.js",
+    "proStart": "node app.js"
+  },
+  "author": "Me",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

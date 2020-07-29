@@ -1,0 +1,18 @@
+{
+  "name": "thirdnpm",
+  "version": "1.0.0",
+  "description": "third npm practice",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run devStart",
+    "devStart": "nodemon app.js",
+    "prostart": "node app.js"
+  },
+  "author": "Will",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.26",
+    "nodemon": "^2.0.4"
+  }
+}

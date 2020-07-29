@@ -1,0 +1,18 @@
+{
+  "name": "fourthnpm",
+  "version": "1.0.0",
+  "description": "fourth npm project hw",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run devStart",
+    "devStart": "nodemon app.js",
+    "proStart": "node app.js"
+  },
+  "author": "Will",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.26",
+    "nodemon": "^2.0.4"
+  }
+}

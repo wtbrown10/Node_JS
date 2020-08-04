@@ -13,9 +13,12 @@ const userRouter = require('./routes/userRouter')
 
 //Middleware and Routes in use
 app.use(express.static('public')) // removes 404 error
+app.use(express.json())
 app.use(middle);
+
 app.use('/', homeRouter)
 app.use('/user', userRouter)
+
 
 
 // Start server listening

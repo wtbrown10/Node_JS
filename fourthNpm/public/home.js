@@ -20,14 +20,21 @@ window.onload = function () {
 
     emailInput.placeholder = "Enter Email"
     emailInput.type = 'email'
+    emailInput.name = 'email'
+
 
     userNameInput.placeholder = "Enter UserName"
+    userNameInput.name = "username"
+
 
     passInput.placeholder = "Enter Password"
     passInput.type = 'password'
+    passInput.name = 'password'
+
 
     passConfirmInput.placeholder = "Re-Enter Password"
     passConfirmInput.type = "password"
+    passConfirmInput.name = 'password confirmation'
 
     submitButton.innerText = "Register"
     submitButton.type = 'submit'
@@ -42,17 +49,19 @@ window.onload = function () {
 
 
 
-    submitButton.addEventListener("click", function () {
-        const formInputs = form.children
+    // submitButton.addEventListener("click", function () {
+    //     const formInputs = form.children
 
-        console.log(formInputs)
+    //     console.log(formInputs)
 
-        for (let i = 0; i < formInputs.length; i++) {
-            console.log(form.children[i].value)
-        }
+    //     for (let i = 0; i < formInputs.length; i++) {
+    //         console.log(form.children[i].value)
+    //     }
 
-        // console.log(form.children[0].value)
-    })
+
+    // })
+
+    submitButton.onclick = sumbmitReg;
 
 
 
@@ -68,13 +77,32 @@ window.onload = function () {
 
     const inputs = document.querySelectorAll('input')
     for (let input of inputs) {
-        input.classList.add('userInput')
+        input.classList.add('input')
+    }
+}
+
+function sumbmitReg() {
+
+    const formElm = document.getElementById('register');
+
+    const reqBody = {}
+
+    for (const input of formElm) {
+        // console.log(input.value)
+
+        reqBody[input.name] = input.value
     }
 
+    const endpoint = location.origin + '/user/post/new'
 
+    const xhr = new XMLHttpRequest();
 
+    xhr.open('POST', endpoint)
 
+    xhr.onload = () => {
+        const res = JSON.parse(xhr.responseText)
+        console.log(res)
+    }
 
-
-
+    xhr.send(JSON.stringify(reqBody))
 }

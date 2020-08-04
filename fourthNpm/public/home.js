@@ -30,6 +30,30 @@ window.onload = function () {
     passConfirmInput.type = "password"
 
     submitButton.innerText = "Register"
+    submitButton.type = 'submit'
+
+    form.id = "register"
+
+    submitButton.id = "RegButton"
+
+    heading.id = 'heading'
+
+    mainDiv.id = 'mainDiv'
+
+
+
+    submitButton.addEventListener("click", function () {
+        const formInputs = form.children
+
+        console.log(formInputs)
+
+        for (let i = 0; i < formInputs.length; i++) {
+            console.log(form.children[i].value)
+        }
+
+        // console.log(form.children[0].value)
+    })
+
 
 
     //3) append to the DOM
@@ -41,6 +65,11 @@ window.onload = function () {
     form.appendChild(userNameInput)
     form.appendChild(passInput)
     form.appendChild(passConfirmInput)
+
+    const inputs = document.querySelectorAll('input')
+    for (let input of inputs) {
+        input.classList.add('userInput')
+    }
 
 
 

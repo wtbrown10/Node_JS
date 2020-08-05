@@ -34,7 +34,7 @@ window.onload = function () {
 
     passConfirmInput.placeholder = "Re-Enter Password"
     passConfirmInput.type = "password"
-    passConfirmInput.name = 'password confirmation'
+    passConfirmInput.name = 'password2'
 
     submitButton.innerText = "Register"
     submitButton.type = 'submit'
@@ -103,6 +103,8 @@ function sumbmitReg() {
         const res = JSON.parse(xhr.responseText)
         console.log(res)
     }
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify(reqBody))
 }

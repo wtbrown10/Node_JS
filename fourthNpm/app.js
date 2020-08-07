@@ -12,10 +12,9 @@ const homeRouter = require('./routes/homeRouter')
 const userRouter = require('./routes/userRouter')
 
 //Middleware and Routes in use
-app.use(express.static('public')) // removes 404 error
+app.use(express.static('public')) // allows you to view js and css files in public folder
 app.use(express.json())
 app.use(middle);
-
 app.use('/', homeRouter)
 app.use('/user', userRouter)
 

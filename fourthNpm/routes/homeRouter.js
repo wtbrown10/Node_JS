@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', function (req, res) {
 
-    const filePath = process.cwd() + '\\public\\home.html'
+    const filePath = process.cwd() + '\\public\\home.html' // 1 way to locate directory and file
 
     console.log(filePath);
 
@@ -12,5 +12,14 @@ router.get('/', function (req, res) {
 
 
 })
+
+router.get(
+    '/login',
+    (req, res) => {
+
+        const filePath = process.cwd() + '\\public\\login.html'
+
+        res.sendFile(filePath)
+    })
 
 module.exports = router

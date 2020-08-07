@@ -1,6 +1,4 @@
 
-
-
 window.onload = function () {
     // create a form 
 
@@ -14,7 +12,6 @@ window.onload = function () {
     const passConfirmInput = document.createElement('input')
     const submitButton = document.createElement('button')
 
-
     //2) set properties and event listeners
     heading.innerText = 'Register Today!'
 
@@ -22,15 +19,12 @@ window.onload = function () {
     emailInput.type = 'email'
     emailInput.name = 'email'
 
-
     userNameInput.placeholder = "Enter UserName"
     userNameInput.name = "username"
-
 
     passInput.placeholder = "Enter Password"
     passInput.type = 'password'
     passInput.name = 'password'
-
 
     passConfirmInput.placeholder = "Re-Enter Password"
     passConfirmInput.type = "password"
@@ -47,8 +41,6 @@ window.onload = function () {
 
     mainDiv.id = 'mainDiv'
 
-
-
     // submitButton.addEventListener("click", function () {
     //     const formInputs = form.children
 
@@ -57,13 +49,8 @@ window.onload = function () {
     //     for (let i = 0; i < formInputs.length; i++) {
     //         console.log(form.children[i].value)
     //     }
-
-
     // })
-
     submitButton.onclick = sumbmitReg;
-
-
 
     //3) append to the DOM
     document.body.appendChild(heading)
@@ -82,14 +69,11 @@ window.onload = function () {
 }
 
 function sumbmitReg() {
-
     const formElm = document.getElementById('register');
-
     const reqBody = {}
 
     for (const input of formElm) {
         // console.log(input.value)
-
         reqBody[input.name] = input.value
     }
 

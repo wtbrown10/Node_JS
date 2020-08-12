@@ -30,6 +30,7 @@ app.use('/user', userRouter)
 
 
 // Start server listening
+// test
 app.listen(port, function () {
     console.log('Listening on port ' + port)
 })

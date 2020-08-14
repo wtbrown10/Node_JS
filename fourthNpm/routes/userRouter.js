@@ -1,6 +1,8 @@
 const express = require('express');
 const router = require('./homeRouter');
 
+const User = require('../models/User')
+
 const userRouter = express.Router();
 
 userRouter.get('/', function (req, res) {
@@ -17,21 +19,36 @@ userRouter.get('/', function (req, res) {
 
 // })
 
-// userRouter.post('/post/new', async (req, res) => {
-//     try {
-//         const body = req.body;
+userRouter.post('/post/register', async (req, res) => {
+    try {
+        const body = req.body;
 
-//         console.log(body);
+        console.log(body);
 
-//         res.json({ message: 'success!' })
+        /* backend validation
+            [] ensure email/username are not duplicates
+            [] check password length
+            [] validate email and username for constraints (before mongoose does for us)
+        */
 
-//     } catch (error) {
+        // old way (deprecated)
+        // const newUserDoc = new User(req.body)  //creates an instance of the user model which an instance of this model is a new document
 
-//         console.error(error.message)
+        // await newUserDoc.save()
 
-//         res.status(500).json({ message: error.message })
-//     }
-// })
+        // new way
+       // await User.create(req.body) .... when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
+
+
+        res.json({ message: 'success!' })
+
+    } catch (error) {
+
+        console.error(error.message)
+
+        res.status(500).json({ message: error.message })
+    }
+})
 
 userRouter.patch('/login', function (req, res) {
     try {
@@ -45,6 +62,8 @@ userRouter.patch('/login', function (req, res) {
 
         res.status(500).json({ message: error.message })
     }
-}) // Homework
+}) 
+
+
 
 module.exports = userRouter;

@@ -19,7 +19,7 @@ const userRouter = require('./routes/userRouter')
 
 // constants
 const port = process.env.PORT || 3000;
-const URI = process.env.MONGO_URI
+const URI = process.env.MONGO
 
 //Middleware and Routes in use
 app.use(express.static('public')) // allows you to view js and css files in public folder
@@ -30,7 +30,7 @@ app.use('/user', userRouter)
 
 if (typeof URI === 'string') {
 
-    const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+    const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
 
     // Connection to database
     mongoose.connect(URI, mongoOptions, (err) => {

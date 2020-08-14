@@ -77,7 +77,22 @@ function sumbmitReg() {
         reqBody[input.name] = input.value
     }
 
-    const endpoint = location.origin + '/user/post/new'
+    let passedValidation = true;
+
+    if(reqBody.username.length > 33 || reqBody.username.length < 3) {
+        alert('Username must be within the range of 3-33 characters')
+
+        return passedValidation = false
+    }
+
+    if(reqBody.password !== reqBody.password2) {
+        alert('Passwords did not match')
+
+        return passedValidation = false
+    }
+
+    if (passedValidation) {
+        const endpoint = location.origin + '/user/post/register'
 
     const xhr = new XMLHttpRequest();
 
@@ -91,4 +106,5 @@ function sumbmitReg() {
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify(reqBody))
+    }
 }

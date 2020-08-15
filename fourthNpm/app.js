@@ -3,9 +3,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-console.log(process.env.TEST);
-
-
 // Main application Var
 const app = express()
 
@@ -23,7 +20,7 @@ const URI = process.env.MONGO
 
 //Middleware and Routes in use
 app.use(express.static('public')) // allows you to view js and css files in public folder
-app.use(express.json())
+app.use(express.json()) //Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
 app.use(middle);
 app.use('/', homeRouter)
 app.use('/user', userRouter)

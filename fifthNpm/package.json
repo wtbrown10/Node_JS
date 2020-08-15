@@ -1,0 +1,18 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "practice",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run devStart",
+    "devStart": "nodemon app.js",
+    "proStart": "node app.js"
+  },
+  "author": "will",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0"
+  }
+}

@@ -12,7 +12,6 @@ const middleware = require('./middleware/middleware')
 // Routers
 const homeRouter = require('./routes/homeRouter')
 
-
 // .Env Const
 const port = process.env.PORT || 3000
 const URI = process.env.MONGO
@@ -38,7 +37,6 @@ if(typeof URI === 'string') {
 } else {
     console.error("Mongo URI missing or invalid, check node environment variables")
 }
-
 
 // Server Listening
 app.listen(port, function() {

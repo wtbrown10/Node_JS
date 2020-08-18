@@ -1,7 +1,8 @@
 const express = require('express');
 const router = require('./homeRouter');
 
-const User = require('../models/User')
+const User = require('../models/User');
+// const { db } = require('../models/User');
 
 const userRouter = express.Router();
 
@@ -37,7 +38,7 @@ userRouter.post('/post/register', async (req, res) => {
         // await newUserDoc.save()
 
         // new way
-       // await User.create(req.body) .... when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
+        await User.create(req.body) // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
 
 
         res.json({ message: 'success!' })
@@ -62,8 +63,47 @@ userRouter.patch('/login', function (req, res) {
 
         res.status(500).json({ message: error.message })
     }
-}) 
+})
 
+userRouter.get('/all', async (req, res) => {
+    // db.collection('users').find()
+    
+    try {
+        const allUsers = await User.find({})
+    
+        console.log(allUsers);
+    
+        res.json(allUsers) // will turn raw data into json format and sends it 
+        
+    } catch (error) {
+
+        console.error(error.message || error)
+        res.status(500).json({
+            message : error.message ||error
+        })
+    }
+})
+
+userRouter.get('/username/:un', async (req, res) => {
+
+    try {
+        // const foundUser = await User.findOne({username: req.params.un})
+
+        const query = {username: req.params.un}
+
+        const projection = {email: 1, username: 1, _id: 0}
+
+        const foundUser = await User.findOne(query, projection)
+
+        res.json(foundUser)
+        
+    } catch (error) {
+        console.error(error.message || error)
+        res.status(500).json({
+            message : error.message ||error
+        })
+    }
+})
 
 
 module.exports = userRouter;

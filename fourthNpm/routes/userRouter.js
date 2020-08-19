@@ -6,6 +6,8 @@ const User = require('../models/User');
 
 const userRouter = express.Router();
 
+const findUser = require('../middleware/finduser')
+
 userRouter.get('/', function (req, res) {
     res.send("This is for the users!")
 })
@@ -105,5 +107,28 @@ userRouter.get('/username/:un', async (req, res) => {
     }
 })
 
+//put /updateinfo/:id *uses req.body to pass modifityin values of user
+// what do we want to update, how is that info being passed to the REST api
+
+//delete /delete/:id (mongodb ducoument id)
+userRouter.delete('/delete/:id',
+    findUser, 
+    async (req, res) => {
+
+    try {
+
+        await User.findByIdAndDelete(req.userId)
+        console.log('deleted user')
+        res.send('Deleted User!')
+        
+    } catch (error) {
+        console.error(error.message || error)
+        res.status(500).json({
+            message : error.message ||error
+        })
+    }
+})
+
+//make viewable to other files
 
 module.exports = userRouter;

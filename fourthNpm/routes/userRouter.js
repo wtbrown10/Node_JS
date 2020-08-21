@@ -152,16 +152,20 @@ async (req, res) => {
     }
 })
 
-userRouter.get('/update', (req, res) => {
-    try {
-        const filePath = process.cwd() + '\\public\\update.html'
+userRouter.get('/update', 
+    (req, res) => {
+        try {
+            // res.sendFile(process.cwd() + '/public/update.html')
+            const filePath = process.cwd() + '\\public\\update.html'
 
-        res.sendFile(filePath)
+            console.log(filePath)
 
-    } catch (error) {
-        console.error(error.message || error)
-        res.status(500).json({
-            message : error.message ||error
+            res.sendFile(filePath)
+
+        } catch (error) {
+            console.error(error.message || error)
+            res.status(500).json({
+                message : error.message ||error
         })
     }
     

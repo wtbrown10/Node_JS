@@ -78,6 +78,3 @@ const endPoint = location.origin + '/user/update/:id'
 
 }
     
-
-
-

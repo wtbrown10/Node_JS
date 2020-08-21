@@ -152,6 +152,21 @@ async (req, res) => {
     }
 })
 
+userRouter.get('/update', (req, res) => {
+    try {
+        const filePath = process.cwd() + '\\public\\update.html'
+
+        res.sendFile(filePath)
+
+    } catch (error) {
+        console.error(error.message || error)
+        res.status(500).json({
+            message : error.message ||error
+        })
+    }
+    
+})
+
 //make viewable to other files
 
 module.exports = userRouter;

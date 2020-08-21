@@ -27,7 +27,7 @@ app.use('/user', userRouter)
 
 if (typeof URI === 'string') {
 
-    const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
+    const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }
 
     // Connection to database
     mongoose.connect(URI, mongoOptions, (err) => {
@@ -35,7 +35,7 @@ if (typeof URI === 'string') {
         if (err) {
             console.error(`\nError Connecting To MongoDB: ${err.message || err}\n`)
         } else {
-            console.log('Server connected DB');
+            console.log('Server connected to DB');
         }
     })
 

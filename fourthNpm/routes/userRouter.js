@@ -129,6 +129,29 @@ userRouter.delete('/delete/:id',
     }
 })
 
+userRouter.put('/update/:id', 
+findUser,
+async (req, res) => {
+
+    try {
+    
+         const update = await User.findByIdAndUpdate(
+            req.params.id, 
+            req.body,
+            {new: true}
+            );
+
+                res.json({report: update})
+                console.log("Updated!")
+        
+    } catch (error) {
+        console.error(error.message || error)
+        res.status(500).json({
+            message : error.message ||error
+        })
+    }
+})
+
 //make viewable to other files
 
 module.exports = userRouter;

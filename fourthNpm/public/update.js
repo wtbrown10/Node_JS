@@ -21,10 +21,12 @@ window.onload = function () {
     button.innerText = 'Submit'
     button.type = 'submit'
     
-    userNameUpdate.className = 'username'
+    userNameUpdate.className = 'input'
     userNameUpdate.type = 'text'
     userNameUpdate.name = 'username'
     userNameUpdate.placeholder = 'Enter Username'
+    userNameUpdate.minLength = 3
+    userNameUpdate.maxLength = 33
     
     emailUpdate.className = 'input'
     emailUpdate.type = 'email'
@@ -35,11 +37,13 @@ window.onload = function () {
     passwordUpdate.type = 'password'
     passwordUpdate.name = 'password'
     passwordUpdate.placeholder = "Enter Password"
+    passwordUpdate.minLength = 7
     
     passwordValidatedUpdate.className = 'input'
     passwordValidatedUpdate.type = 'password'
     passwordValidatedUpdate.name = 'passwordValidate'
     passwordValidatedUpdate.placeholder = 'Re-Enter Password'
+    passwordValidatedUpdate.minLength = 7
 
     idInput.className = 'input'
     idInput.type = 'text'
@@ -65,14 +69,32 @@ window.onload = function () {
     
         const formElm = document.getElementById('updateForm');
         const reqBody = {}
-    
-        for (const input of formElm) {
-            if(formElm[input.name].value == '') {
-                alert(`complete all fields!`)
-            } else{
-            reqBody[input.name] = input.value
+        const userID = formElm.id.value.trim()
+
+        if(userID  == '') {
+            return alert('Must Provide User ID')
+        } else if (userID.length != 24) {
+            return alert('ID must be in proper format')
         }
-    }
+
+        console.log('passes ID test');
+    
+        // for (const input of formElm) {
+        //     if(formElm[input.name].value.trim() == '') {
+        //         alert(`complete all fields!`)
+        //     } else{
+        //     reqBody[input.name] = input.value
+        // }
+
+        for (const input of formElm) {
+            const val = input.value.trim()
+            if(val != '' && input.name != 'id') {
+            reqBody[input.name] = val
+        }
+        }
+        if (Object.keys(reqBody).length == 0) {
+            return alert('One input must be filled')
+        }
         
     
     const endPoint = location.origin + `/user/update/${formElm.id.value}`

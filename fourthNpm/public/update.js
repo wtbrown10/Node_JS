@@ -7,6 +7,7 @@ window.onload = function () {
     const emailUpdate = document.createElement('input')
     const passwordUpdate = document.createElement('input')
     const passwordValidatedUpdate = document.createElement('input')
+    const idInput = document.createElement('input')
     const button = document.createElement('button')
     
     heading.innerText = "Update"
@@ -36,9 +37,14 @@ window.onload = function () {
     passwordUpdate.placeholder = "Enter Password"
     
     passwordValidatedUpdate.className = 'input'
-    passwordValidatedUpdate.type = 'text'
-    passwordValidatedUpdate.name = 'username'
+    passwordValidatedUpdate.type = 'password'
+    passwordValidatedUpdate.name = 'passwordValidate'
     passwordValidatedUpdate.placeholder = 'Re-Enter Password'
+
+    idInput.className = 'input'
+    idInput.type = 'text'
+    idInput.name = 'id'
+    idInput.placeholder = 'Enter ID'
     
     document.body.appendChild(heading)
     document.body.appendChild(div)
@@ -50,6 +56,7 @@ window.onload = function () {
     form.appendChild(emailUpdate)
     form.appendChild(passwordUpdate)
     form.appendChild(passwordValidatedUpdate)
+    form.appendChild(idInput)
     
     button.onclick = submitBtn
     }
@@ -60,10 +67,15 @@ window.onload = function () {
         const reqBody = {}
     
         for (const input of formElm) {
+            if(formElm[input.name].value == '') {
+                alert(`complete all fields!`)
+            } else{
             reqBody[input.name] = input.value
         }
+    }
+        
     
-    const endPoint = location.origin + '/user/put/update/'
+    const endPoint = location.origin + `/user/update/${formElm.id.value}`
     
         const xhr = new XMLHttpRequest()
     

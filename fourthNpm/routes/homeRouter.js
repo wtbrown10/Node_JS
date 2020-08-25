@@ -29,4 +29,23 @@ router.get('/environment', (req, res) => {
     }
 })
 
+router.get('/update', 
+    (req, res) => {
+        try {
+            // res.sendFile(process.cwd() + '/public/update.html')
+            const filePath = process.cwd() + '\\public\\update.html'
+
+            console.log(filePath)
+
+            res.sendFile(filePath)
+
+        } catch (error) {
+            console.error(error.message || error)
+            res.status(500).json({
+                message : error.message ||error
+        })
+    }
+    
+})
+
 module.exports = router

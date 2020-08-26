@@ -39,14 +39,37 @@ window.onload = function () {
 }
 
 function sumbmitFunc() {
-
     const loginValues = document.getElementById('login')
     const reqBody = {}
 
     for (const input of loginValues) {
-
-        reqBody[input.name] = input.value
+        reqBody[input.name] = input.value.trim()
+        // console.log(input.value.trim())
     }
+
+    let passedValidation = true
+
+    const email = reqBody.email
+
+    if(
+        email.length < 6
+        || email.length > 200
+        || !email.includes('@')
+        || !email.substring(email.indexOf('@')).includes('.')
+    ) {
+        alert('Please enter valid email')
+
+        return passedValidation = false
+    }
+
+    if (reqBody.password.length < 7) {
+        alert('Please enter valid password')
+
+        return passedValidation = false
+
+    }
+
+    if(passedValidation) {
 
     // console.log(loginValues.children[0].value)
     const endpoint = location.origin + "/user/login"
@@ -63,4 +86,5 @@ function sumbmitFunc() {
 
     xhr.send(JSON.stringify(reqBody))
 
+}
 }

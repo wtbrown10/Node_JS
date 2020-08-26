@@ -21,14 +21,18 @@ window.onload = function () {
 
     userNameInput.placeholder = "Enter UserName"
     userNameInput.name = "username"
+    userNameInput.type = 'text'
+    userNameInput.maxLength = 33
 
     passInput.placeholder = "Enter Password"
     passInput.type = 'password'
     passInput.name = 'password'
+    passInput.minLength = 7
 
     passConfirmInput.placeholder = "Re-Enter Password"
     passConfirmInput.type = "password"
     passConfirmInput.name = 'password2'
+    passConfirmInput.minLength = 7
 
     submitButton.innerText = "Register"
     submitButton.type = 'submit'
@@ -73,14 +77,31 @@ function sumbmitReg() {
     const reqBody = {}
 
     for (const input of formElm) {
-        // console.log(input.value)
-        reqBody[input.name] = input.value
+        reqBody[input.name] = input.value.trim()
     }
 
     let passedValidation = true;
 
+    const email = reqBody.email
+
+    if(
+        email.length < 6 
+        || email.length > 200 
+        || !email.includes('@') // doesnot account for multipule @ symbols
+        || !email.substring(email.indexOf('@')).includes('.') // does not account for multiple '.' after the @ symbol
+    ) {
+        alert('Please enter valid email')
+
+    }
+
     if(reqBody.username.length > 33 || reqBody.username.length < 3) {
         alert('Username must be within the range of 3-33 characters')
+
+        return passedValidation = false
+    }
+
+    if(reqBody.password.length < 7) {
+        alert('Password did not meet requirements!')
 
         return passedValidation = false
     }

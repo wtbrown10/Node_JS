@@ -28,11 +28,46 @@ userRouter.post('/post/register', async (req, res) => {
 
         console.log(body);
 
+        /*const { email, username, password } = req.body 
+
+         also the same as 
+
+        const email = req.body.email
+        const username = req.body.username
+        const password = req.body.password
+        */
+        const { email: e, username: u, password: p} = req.body
+        const validationErrors = []
+        
+        if (e === undefined || u === undefined || p === undefined) {
+            return res.status(400).json({
+                message: 'Fields missing needed to create account'
+            })
+        }
         /* backend validation
             [] ensure email/username are not duplicates
             [] check password length
             [] validate email and username for constraints (before mongoose does for us)
         */
+       const emailExist = User.findOne({email: e}) !== null
+
+       const userNameExist = User.findOne({username: u}) !== null
+
+
+           if (!emailExist) validationErrors.push({key: 'email', error: 'Email In Use'})
+           if (!userNameExist) validationErrors.push({key: 'username', error: 'Username In Use'})
+
+           if(p.length < 7) validationErrors.push({key: 'password', error: 'Password Did Not Meet Requirements'})
+               
+           return res.status(409).json({
+               message: 'Data already in use!',
+               data: []
+           })
+           
+       //if this array has then 0 elm res with 400 and res with the array of errors
+
+       // if password length is off
+            // return res msg
 
         // old way (deprecated)
         // const newUserDoc = new User(req.body)  //creates an instance of the user model which an instance of this model is a new document
@@ -57,7 +92,13 @@ userRouter.patch('/login', function (req, res) {
     try {
         const body = req.body;
 
+        const query = {email: req.params.email}
+
+        const projection = {email: 1, password: 1}
+
         console.log(body, 'Login Test');
+
+        await User.findOne(query, projection)
 
         res.json({ message: 'success!' })
 

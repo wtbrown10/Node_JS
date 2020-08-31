@@ -75,7 +75,7 @@ userRouter.post('/post/register', async (req, res) => {
         // await newUserDoc.save()
 
         // new way
-        await User.create(req.body) // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
+       /* await User.create(req.body) */ // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
 
 
         res.json({ message: 'success!' })
@@ -88,7 +88,7 @@ userRouter.post('/post/register', async (req, res) => {
     }
 })
 
-userRouter.patch('/login', function (req, res) {
+userRouter.patch('/login', async function (req, res) {
     try {
         const body = req.body;
 

@@ -44,7 +44,6 @@ if (typeof URI === 'string') {
         }
     })
 
-
 } else {
     console.error("Mongo URI missing or invalid, check node environment variables")
 }

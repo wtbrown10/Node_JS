@@ -7,6 +7,7 @@ const User = require('../models/User');
 const userRouter = express.Router();
 
 const findUser = require('../middleware/finduser')
+const validateReg = require('../middleware/validateRegister')
 
 userRouter.get('/', function (req, res) {
     res.send("This is for the users!")
@@ -22,7 +23,9 @@ userRouter.get('/', function (req, res) {
 
 // })
 
-userRouter.post('/post/register', async (req, res) => {
+userRouter.post('/post/register',
+validateReg,
+ async (req, res) => {
     try {
         const body = req.body;
 
@@ -36,33 +39,6 @@ userRouter.post('/post/register', async (req, res) => {
         const username = req.body.username
         const password = req.body.password
         */
-        const { email: e, username: u, password: p} = req.body
-        const validationErrors = []
-        
-        if (e === undefined || u === undefined || p === undefined) {
-            return res.status(400).json({
-                message: 'Fields missing needed to create account'
-            })
-        }
-        /* backend validation
-            [] ensure email/username are not duplicates
-            [] check password length
-            [] validate email and username for constraints (before mongoose does for us)
-        */
-       const emailExist = User.findOne({email: e}) !== null
-
-       const userNameExist = User.findOne({username: u}) !== null
-
-
-           if (!emailExist) validationErrors.push({key: 'email', error: 'Email In Use'})
-           if (!userNameExist) validationErrors.push({key: 'username', error: 'Username In Use'})
-
-           if(p.length < 7) validationErrors.push({key: 'password', error: 'Password Did Not Meet Requirements'})
-               
-           return res.status(409).json({
-               message: 'Data already in use!',
-               data: []
-           })
            
        //if this array has then 0 elm res with 400 and res with the array of errors
 
@@ -75,14 +51,14 @@ userRouter.post('/post/register', async (req, res) => {
         // await newUserDoc.save()
 
         // new way
-       /* await User.create(req.body) */ // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
 
 
-        res.json({ message: 'success!' })
+        await User.create(req.body)  // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
+
+
+        res.status(200).json({ message: 'success!' })
 
     } catch (error) {
-
-        console.error(error.message)
 
         res.status(500).json({ message: error.message })
     }

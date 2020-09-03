@@ -31,6 +31,8 @@ validateReg,
 
         console.log(body);
 
+        console.log('User Registered')
+
         /*const { email, username, password } = req.body 
 
          also the same as 
@@ -56,7 +58,7 @@ validateReg,
         await User.create(req.body)  // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
 
 
-        res.status(200).json({ message: 'success!' })
+        res.status(200).json({ message: 'User Registered!' })
 
     } catch (error) {
 

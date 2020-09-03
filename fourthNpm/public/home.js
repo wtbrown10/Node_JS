@@ -84,35 +84,35 @@ function sumbmitReg() {
 
     const email = reqBody.email
 
-    if(
-        email.length < 6 
-        || email.length > 200 
-        || !email.includes('@') // doesnot account for multipule @ symbols
-        || !email.substring(email.indexOf('@')).includes('.') // does not account for multiple '.' after the @ symbol
-    ) {
-        alert('Please enter valid email')
+    // if(
+    //     email.length < 6 
+    //     || email.length > 200 
+    //     || !email.includes('@') // doesnot account for multipule @ symbols
+    //     || !email.substring(email.indexOf('@')).includes('.') // does not account for multiple '.' after the @ symbol
+    // ) {
+    //     alert('Please enter valid email')
 
-    }
+    // }
 
-    if(reqBody.username.length > 33 || reqBody.username.length < 3) {
-        alert('Username must be within the range of 3-33 characters')
+    // if(reqBody.username.length > 33 || reqBody.username.length < 3) {
+    //     alert('Username must be within the range of 3-33 characters')
 
-        return passedValidation = false
-    }
+    //     return passedValidation = false
+    // }
 
-    if(reqBody.password.length < 7) {
-        alert('Password did not meet requirements!')
+    // if(reqBody.password.length < 7) {
+    //     alert('Password did not meet requirements!')
 
-        return passedValidation = false
-    }
+    //     return passedValidation = false
+    // }
 
-    if(reqBody.password !== reqBody.password2) {
-        alert('Passwords did not match')
+    // if(reqBody.password !== reqBody.password2) {
+    //     alert('Passwords did not match')
 
-        return passedValidation = false
-    }
+    //     return passedValidation = false
+    // }
 
-    if (passedValidation) {
+    // if (passedValidation) {
         const endpoint = location.origin + '/user/post/register'
 
     const xhr = new XMLHttpRequest();
@@ -120,12 +120,27 @@ function sumbmitReg() {
     xhr.open('POST', endpoint)
 
     xhr.onload = () => {
+        const err = []
         const res = JSON.parse(xhr.responseText)
-        console.log(res)
+        const values = Object.values(res)
+
+        for (const i of values) {
+            if(i['error'] !== undefined) {
+            console.log(i['error'])
+            err.push(i['error']);
+        }
+    }
+
+        if (err.length === 0) {
+            document.getElementById('heading').innerText = "You Are Registered!"
+            document.getElementById('mainDiv').innerText = " "
+        } else {
+        alert(`\n!!Attention!!\nPlease Correct Errors: \n${err} `)
+        }
     }
 
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify(reqBody))
     }
-}
+// }

@@ -135,7 +135,36 @@ function sumbmitReg() {
             document.getElementById('heading').innerText = "You Are Registered!"
             document.getElementById('mainDiv').innerText = " "
         } else {
-        alert(`\n!!Attention!!\nPlease Correct Errors: \n${err} `)
+        // alert(`\n!!Attention!!\nPlease Correct Errors: \n${err} `)
+           
+        const modal = document.getElementById("myModal")
+        const span = document.getElementsByClassName("close")[0]
+
+        function errorWindow() {
+            modal.style.display = "block";
+          }
+
+            errorWindow()
+
+            span.onclick = function() {
+                modal.style.display = "none";
+              }
+
+              window.onclick = function(event) {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              }
+        
+
+               let html = '<p>Please Correct Errors<ul>'
+
+            for(let i = 0; i < err.length; i++) {
+                html += `<li>${err[i]}</li>`
+            }
+            html += "</ul></p>"
+             document.getElementById('list').innerHTML = html
+
         }
     }
 

@@ -124,10 +124,10 @@ function sumbmitReg() {
         const res = JSON.parse(xhr.responseText)
         const values = Object.values(res)
 
-        for (const i of values) {
-            if(i['error'] !== undefined) {
-            console.log(i['error'])
-            err.push(i['error']);
+        for (const val of values) {
+            if(val['error'] !== undefined) {
+            console.log(val['error'])
+            err.push(val['error']);
         }
     }
 
@@ -156,7 +156,6 @@ function sumbmitReg() {
                 }
               }
         
-
                let html = '<p>Please Correct Errors<ul>'
 
             for(let i = 0; i < err.length; i++) {
@@ -164,7 +163,6 @@ function sumbmitReg() {
             }
             html += "</ul></p>"
              document.getElementById('list').innerHTML = html
-
         }
     }
 

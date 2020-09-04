@@ -7,7 +7,8 @@ const User = require('../models/User');
 const userRouter = express.Router();
 
 const findUser = require('../middleware/finduser')
-const validateReg = require('../middleware/validateRegister')
+const validateReg = require('../middleware/validateRegister');
+const passEncrypt = require('../middleware/passEncrypt');
 
 userRouter.get('/', function (req, res) {
     res.send("This is for the users!")
@@ -25,6 +26,7 @@ userRouter.get('/', function (req, res) {
 
 userRouter.post('/post/register',
 validateReg,
+passEncrypt,
  async (req, res) => {
     try {
         const body = req.body;
@@ -53,9 +55,8 @@ validateReg,
         // await newUserDoc.save()
 
         // new way
-
-
-        await User.create(req.body)  // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
+        // req.newUser is defined in the validateReq middleware and passed to this function
+        await User.create(req.newUser)  // when using await must alway include async in function. the await ensures that the document createation is completed before the response is given
 
 
         res.status(200).json({ message: 'User Registered!' })

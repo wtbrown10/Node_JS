@@ -9,6 +9,8 @@ const userRouter = express.Router();
 const findUser = require('../middleware/finduser')
 const validateReg = require('../middleware/validateRegister');
 const passEncrypt = require('../middleware/passEncrypt');
+const checkUserCred = require('../middleware/checkUserCred')
+const createJWT = require('../middleware/createJWT')
 
 userRouter.get('/', function (req, res) {
     res.send("This is for the users!")
@@ -67,19 +69,24 @@ passEncrypt,
     }
 })
 
-userRouter.patch('/login', async function (req, res) {
+userRouter.patch(
+    '/login',
+    checkUserCred,
+    createJWT, 
+    (req, res) => {
     try {
-        const body = req.body;
+        // const body = req.body;
 
-        const query = {email: req.params.email}
+        // const query = {email: req.params.email}
 
-        const projection = {email: 1, password: 1}
+        // const projection = {email: 1, password: 1}
 
-        console.log(body, 'Login Test');
+        // console.log(body, 'Login Test');
 
-        await User.findOne(query, projection)
+        // await User.findOne(query, projection)
 
-        res.json({ message: 'success!' })
+
+        res.json({ token: req.createdJWT })
 
     } catch (error) {
 
